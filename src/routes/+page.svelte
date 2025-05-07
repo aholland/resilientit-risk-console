@@ -9,31 +9,11 @@
   let newTodo = $state('');
   let newDeadlineInput = $state(0);
   let isManualDeadline = $state(false);
-  let isFruityTheme = $state(false); /* Theme toggle state */
 
   let startSeconds = get(secondsSinceEpoch);
   let now = $derived($secondsSinceEpoch - startSeconds);
   let defaultDeadline = $derived((Math.round((now-3) / 10) * 10)+10);
   let newDeadline = $derived(isManualDeadline ? newDeadlineInput : defaultDeadline);
-
-  /* Ensure theme is applied on initial load */
-  onMount(() => {
-    if (isFruityTheme) {
-      document.documentElement.classList.add('fruity-theme');
-    } else {
-      document.documentElement.classList.remove('fruity-theme');
-    }
-  });
-
-  /* Update html class when theme changes */
-  $effect(() => {
-    console.log('Toggling theme to:', isFruityTheme ? 'fruity' : 'dark');
-    if (isFruityTheme) {
-      document.documentElement.classList.add('fruity-theme');
-    } else {
-      document.documentElement.classList.remove('fruity-theme');
-    }
-  });
 
   function addTodo(event: Event) {
     event.preventDefault();
@@ -83,10 +63,6 @@
   let successTodos = $derived(todos.filter(todo => todo.completed));
   let trashTodos = $derived(todos.filter(todo => (!todo.matters || todo.missedDeadline) && !todo.completed));
 </script>
-<svelte:head>
-    <link rel="preload" href="/matta-baby.png" as="image" />
-    <link rel="preload" href="/fruity-baby.jpg" as="image" />
-</svelte:head>
 <style>
     :global(html), :global(body) {
         background-color: var(--background);
@@ -97,17 +73,11 @@
 </style>
 
 <div class="max-w-md mx-auto mt-10 p-6 rounded-lg shadow-lg flex flex-col min-h-[calc(100vh-2.5rem)] mb-10" style="background-color: var(--container-bg);">
-    <img src={isFruityTheme ? "/fruity-baby.jpg" : "/matta-baby.png"} alt="Solving the problems that matter most ™" class="mb-4 mx-auto rounded-lg"/>
+    <img src="/Resilient-Logo.jpg" alt="Solving the problems that matter most ™" class="mb-4 mx-auto rounded-lg"/>
     <h1 class="text-2xl font-bold mb-4 flex justify-between items-center" style="color: var(--text-primary);">
         TODO List™
         <span class="text-sm font-normal min-w-[180px]" style="color: var(--text-secondary);">Current time: {now}s</span>
     </h1>
-    <div class="flex justify-end mb-4">
-        <label class="flex items-center gap-1 text-sm" style="color: var(--text-secondary);">
-            <input type="checkbox" bind:checked={isFruityTheme} class="h-4 w-4" style="accent-color: var(--accent);"/>
-            Fruity Theme
-        </label>
-    </div>
     <form on:submit={addTodo} class="flex flex-wrap gap-2 mb-4">
         <div class="flex flex-1 gap-2 min-w-0">
             <input type="text" bind:value={newTodo} placeholder="Add task (with deadline)"
