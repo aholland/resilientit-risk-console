@@ -4,6 +4,7 @@
   import {Todo} from '$lib/todo';
   import {onMount} from 'svelte';
   import '../lib/styles/themes.css';
+  import RiskList from "$lib/components/RiskList.svelte";
 
   let todos = $state<Todo[]>([]);
   let newTodo = $state('');
@@ -72,12 +73,13 @@
     }
 </style>
 
-<div class="max-w-md mx-auto mt-10 p-6 rounded-lg shadow-lg flex flex-col min-h-[calc(100vh-2.5rem)] mb-10" style="background-color: var(--container-bg);">
+<div class="max-w-6xl mx-auto mt-10 p-6 rounded-lg shadow-lg flex flex-col min-h-[calc(100vh-2.5rem)] mb-10" style="background-color: var(--container-bg);">
     <img src="/Resilient-Logo.jpg" alt="Solving the problems that matter most ™" class="mb-4 mx-auto rounded-lg"/>
     <h1 class="text-2xl font-bold mb-4 flex justify-between items-center" style="color: var(--text-primary);">
-        TODO List™
+        Risk Console™
         <span class="text-sm font-normal min-w-[180px]" style="color: var(--text-secondary);">Current time: {now}s</span>
     </h1>
+    <RiskList/>
     <form on:submit={addTodo} class="flex flex-wrap gap-2 mb-4">
         <div class="flex flex-1 gap-2 min-w-0">
             <input type="text" bind:value={newTodo} placeholder="Add task (with deadline)"
