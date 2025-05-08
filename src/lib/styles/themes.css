@@ -2,9 +2,10 @@
 :root {
     --background: #4562A4; /* Darker blue background */
     --container-bg: #4A68AD; /* Lighter blue container */
-    --item-bg: #4562A4; /* Lighter blue for items */
-    --text-primary: #FFFFFF; /* White primary text */
+    --item-bg: white; /* Lighter blue for items */
+    --text-primary: black; /* White primary text */
     --text-secondary: #E0E0E0; /* Light grey-white secondary text */
+    --text-on-blue: white; /* Light grey-white secondary text */
     --border: #FFFFFF; /* White border for logo contrast */
     --button-bg: #003A75; /* Distinct blue button */
     --button-bg-hover: #002A55; /* Darker blue on hover */

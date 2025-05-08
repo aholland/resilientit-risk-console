@@ -13,7 +13,7 @@ export class Risk {
   controls: Control[];
   checkProcess: string;
   notes: string | null;
-  status: string | null;
+  status: 'Not Implemented'|'Partially Implemented'|'Fully Implemented'|null;
   conformance: string | null;
   lastReviewed: string | null;
 
@@ -30,7 +30,7 @@ export class Risk {
     controls: string[];
     checkProcess: string;
     notes: string | null;
-    status: string | null;
+    status: 'Not Implemented'|'Partially Implemented'|'Fully Implemented'|null;
     conformance: string | null;
     lastReviewed: string | null;
     },

@@ -14,7 +14,7 @@
 </script>
 
 <div class="p-4">
-    <h1 class="text-2xl font-bold text-resilient-blue mb-4" style="color: var(--text-primary);">Risk Register</h1>
+    <h1 class="text-2xl font-bold text-resilient-blue mb-4" style="color: var(--text-on-blue);">Risk Register</h1>
     <ul>
         {#each risks as risk}
             {#snippet RiskItem(risk: Risk)}
@@ -25,34 +25,41 @@
                         class:bg-green-100={risk.scoreIsLow()}
                         style="background-color: var(--item-bg);"
                 >
-                    <div class="flex flex-col gap-1">
-                        <div class="flex gap-1">
-                            <span class="font-light" style="color: var(--text-primary);">
-                                Risk&nbsp;type&nbsp;{risk.id}&nbsp;|
-                            </span>
-                            <span class="font-medium" style="color: var(--text-primary);">
-                                {risk.title}
-                            </span>
-                            <div class="ml-auto flex gap-1 items-center">
-                                <span class="font-light text-xs" style="color: var(--text-primary);">Current:</span>
-                                <span class="w-3 h-3 inline-block" style="background: {RiskColoursMap.getAxisColour(risk.impact ?? null)};"></span>
-                                <span class="font-light text-xs" style="color: var(--text-primary);">impact {risk.impact ?? 'N/A'}</span>
-                                <span class="font-light text-xs" style="color: var(--text-primary);">|</span>
-                                <span class="w-3 h-3 inline-block" style="background: {RiskColoursMap.getAxisColour(risk.likelihood ?? null)};"></span>
-                                <span class="font-light text-xs" style="color: var(--text-primary);">likelihood {risk.likelihood ?? 'N/A'}</span>
-                                <span class="font-light text-xs" style="color: var(--text-primary);">|</span>
-                                <span class="w-3 h-3 inline-block" style="background: {RiskColoursMap.getColour(risk)};"></span>
-                                <span class="font-light text-xs" style="color: var(--text-primary);">score {risk.score() ?? 'N/A'}</span>
-                            </div>                        </div>
+                    <div class="flex flex-col gap-1" style="background: #FFFFFF">
+                        <div class="flex flex-col gap-1">
+                            <div class="flex gap-1 w-full">
+                                <span class="" style="color: var(--text-primary);">{risk.id} |</span>
+                                <span class="font-medium" style="color: var(--text-primary);">{risk.title}</span>
+                            </div>
+                            <div class="flex gap-1 items-center flex-nowrap min-w-fit"
+                                 style="justify-content: flex-start;">
+                                <span class="text-left text-xs">Status: {risk.status ?? 'Not Implemented'}</span>
+                                <span class="w-3 h-3 inline-block" style="background: {RiskColoursMap.getStatusColour(risk)};"></span>
+                                <div class="flex-1"></div>
+                                <div class="flex gap-1 items-center flex-nowrap">
+                                    <span class="text-xs" style="color: var(--text-primary);">Current:</span>
+                                    <span class="w-3 h-3 inline-block"
+                                          style="background: {RiskColoursMap.getAxisColour(risk.impact ?? null)};"></span>
+                                    <span class="text-xs"
+                                          style="color: var(--text-primary);">Impact {risk.impact ?? 'N/A'}</span>
+                                    <span class="text-xs" style="color: var(--text-primary);">|</span>
+                                    <span class="w-3 h-3 inline-block"
+                                          style="background: {RiskColoursMap.getAxisColour(risk.likelihood ?? null)};"></span>
+                                    <span class="text-xs"
+                                          style="color: var(--text-primary);">Likelihood {risk.likelihood ?? 'N/A'}</span>
+                                    <span class="text-xs" style="color: var(--text-primary);">|</span>
+                                    <span class="w-3 h-3 inline-block"
+                                          style="background: {RiskColoursMap.getColour(risk)};"></span>
+                                    <span class="text-xs"
+                                          style="color: var(--text-primary);">Score {risk.score() ?? 'N/A'}</span>
+                                </div>
+                            </div>
+                        </div>
                         <span
                                 class="font-light text-xs border-t border-b border-t-gray-400 border-b-gray-400 p-1"
                                 style="color: var(--text-primary);"
                         >{risk.description}</span>
-                        <div class="flex gap-4 text-sm" style="color: var(--text-secondary);">
-                            <span>Score: {risk.score() ?? 'N/A'}</span>
-                            <span>Status: {risk.status ?? 'Not Implemented'}</span>
-                        </div>
-                        <div class="text-sm" style="color: var(--text-secondary);">
+                        <div class="font-light text-xs" style="color: var(--text-primary);">
                             Controls:
                             <ul class="list-disc list-inside ml-2">
                                 {#each risk.controls as control}

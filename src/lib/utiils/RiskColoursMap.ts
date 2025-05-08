@@ -2,6 +2,13 @@
 import type { Risk } from '../types/Risk';
 
 export class RiskColoursMap {
+  private static readonly STATUS_COLOURS = {
+    empty: '#3B75B0',
+    not: '#FFC7CD',
+    partial: '#FFEB9C',
+    fully: '#C6EFCD',
+  };
+
   private static readonly COLOURS = {
     empty: '#3B75B0',
     low: '#6FAA45',
@@ -14,6 +21,13 @@ export class RiskColoursMap {
     if (risk.scoreIsHigh()) return this.COLOURS.high;
     if (risk.scoreIsMid()) return this.COLOURS.mid;
     if (risk.scoreIsLow()) return this.COLOURS.low;
+    return this.COLOURS.empty;
+  }
+
+  static getStatusColour(risk: Risk): string {
+    if (risk.status === null || risk.status === 'Not Implemented') return this.STATUS_COLOURS.not;
+    if (risk.status === 'Partially Implemented') return this.STATUS_COLOURS.partial;
+    if (risk.status === 'Fully Implemented') return this.STATUS_COLOURS.fully;
     return this.COLOURS.empty;
   }
 
