@@ -1,1 +1,12 @@
 @import 'tailwindcss';
+
+.sdt-component-wrap {
+    @apply text-xs;
+}
+
+.sdt-component-wrap input {
+    width: 72px;
+    padding-left: 3px;
+    outline: none;
+    @apply hover:bg-yellow-200 focus:bg-yellow-200;
+}

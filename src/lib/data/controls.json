@@ -257,7 +257,8 @@
     "type": "Corrective",
     "securityProperties": ["Confidentiality", "Integrity", "Availability"],
     "riskGrouping": "Incident Management",
-    "policy": "Governance & ISMS Management"
+    "policy": "Governance & ISMS Management",
+    "status": "Implemented"
   },
   {
     "id": "A.5.27",

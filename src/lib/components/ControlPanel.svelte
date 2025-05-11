@@ -5,4 +5,4 @@
   const { control } = $props<{ control: Control}>();
 </script>
 
-<li>{control.name}</li>
+<li>{control.id}: {control.name} (status: {control.status})</li>

@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      svelty-picker:
+        specifier: 6.1.5
+        version: 6.1.5(svelte@5.28.2)
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: 6.0.0
@@ -191,6 +195,15 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@floating-ui/core@1.7.0':
+    resolution: {integrity: sha512-FRdBLykrPPA6P76GGGqlex/e7fbe0F1ykgxHYNXQsH/iTEtjMj/f9bpY5oQqbjt5VgZvgz/uKXbGuROijh3VLA==}
+
+  '@floating-ui/dom@1.7.0':
+    resolution: {integrity: sha512-lGTor4VlXcesUMh1cupTUTDoCxMb0V6bm3CnxHzQcw8Eaf1jQbgQX4i02fYgT0vJ82tb5MZ4CZk1LRGkktJCzg==}
+
+  '@floating-ui/utils@0.2.9':
+    resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
 
   '@jridgewell/gen-mapping@0.3.8':
     resolution: {integrity: sha512-imAbBGkb+ebQyxKgzv5Hu2nmROxoDOXHh80evxdoXNOrvAnVx7zimzc1Oo5h9RlfV4vPXaE2iM5pOFbvOCClWA==}
@@ -666,6 +679,11 @@ packages:
     resolution: {integrity: sha512-FbWBxgWOpQfhKvoGJv/TFwzqb4EhJbwCD17dB0tEpQiw1XyUEKZJtgm4nA4xq3LLsMo7hu5UY/BOFmroAxKTMg==}
     engines: {node: '>=18'}
 
+  svelty-picker@6.1.5:
+    resolution: {integrity: sha512-BpgtkukWox6lMoeVQcfMbztPEN4+HCnKH+T7QdfOYNwzYo0nFW9Mt1BjCyK4Uj7zJ2lBkFljPTplN7EuNRe7MQ==}
+    peerDependencies:
+      svelte: ^5.0.0
+
   tailwindcss@4.1.5:
     resolution: {integrity: sha512-nYtSPfWGDiWgCkwQG/m+aX83XCwf62sBgg3bIlNiiOcggnS1x3uVRDAuyelBFL+vJdOPPCGElxv9DjHJjRHiVA==}
 
@@ -818,6 +836,17 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.3':
     optional: true
+
+  '@floating-ui/core@1.7.0':
+    dependencies:
+      '@floating-ui/utils': 0.2.9
+
+  '@floating-ui/dom@1.7.0':
+    dependencies:
+      '@floating-ui/core': 1.7.0
+      '@floating-ui/utils': 0.2.9
+
+  '@floating-ui/utils@0.2.9': {}
 
   '@jridgewell/gen-mapping@0.3.8':
     dependencies:
@@ -1236,6 +1265,11 @@ snapshots:
       locate-character: 3.0.0
       magic-string: 0.30.17
       zimmerframe: 1.1.2
+
+  svelty-picker@6.1.5(svelte@5.28.2):
+    dependencies:
+      '@floating-ui/dom': 1.7.0
+      svelte: 5.28.2
 
   tailwindcss@4.1.5: {}
 

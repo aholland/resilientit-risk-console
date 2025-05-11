@@ -1,7 +1,6 @@
 [
   {
     "id": "A",
-    "dateAdded": "2024-06-11",
     "category": "Operational (Including Information Security Risks)",
     "title": "Incident management",
     "description": " A loss of confidentiality, integrity, or availability occurs due to inadequate incident management and the failure of controls related to incident response, learning from incidents, evidence collection, logging, monitoring activities, and incident management responsibilities and preparation.",
