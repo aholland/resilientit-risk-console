@@ -1,4 +1,7 @@
-import type { Control } from './Control';
+import type {Control} from './Control';
+import {RiskScore} from "$lib/types/RiskScore";
+
+type Status = 'Not Implemented'|'Partially Implemented'|'Fully Implemented'|null;
 
 export class Risk {
   id: string;
@@ -6,16 +9,15 @@ export class Risk {
   category: string;
   title: string;
   description: string;
-  likelihood: number | null;
-  impact: number | null;
   owner: string | null;
   treatment: string;
   controls: Control[];
   checkProcess: string;
   notes: string | null;
-  status: 'Not Implemented'|'Partially Implemented'|'Fully Implemented'|null;
+  status: Status;
   conformance: string | null;
   lastReviewed: string | null;
+  score: RiskScore;
 
   constructor(data: {
     id: string;
@@ -30,7 +32,7 @@ export class Risk {
     controls: string[];
     checkProcess: string;
     notes: string | null;
-    status: 'Not Implemented'|'Partially Implemented'|'Fully Implemented'|null;
+    status: string | null;
     conformance: string | null;
     lastReviewed: string | null;
     },
@@ -41,8 +43,6 @@ export class Risk {
     this.category = data.category;
     this.title = data.title;
     this.description = data.description;
-    this.likelihood = data.likelihood;
-    this.impact = data.impact;
     this.owner = data.owner;
     this.treatment = data.treatment;
     this.controls = data.controls
@@ -50,33 +50,12 @@ export class Risk {
       .filter((control): control is Control => control !== undefined);
     this.checkProcess = data.checkProcess;
     this.notes = data.notes;
-    this.status = data.status;
     this.conformance = data.conformance;
     this.lastReviewed = data.lastReviewed;
-  }
-
-  score(): number | null {
-    if (this.likelihood === null || this.impact === null) {
-      return null;
+    this.score = new RiskScore(data.likelihood ?? 0, data.impact ?? 0, 5);
+    if (!(['Not Implemented', 'Partially Implemented', 'Fully Implemented',null].includes(data.status))) {
+      throw new Error(`Unknown status "${data.status}"`);
     }
-    return this.likelihood + this.impact - 1;
-  }
-
-  scoreInRange(lowerBoundInclusive: number, upperBoundInclusive: number): boolean {
-    const score = this.score();
-    return score ? (lowerBoundInclusive <= score && score <= upperBoundInclusive) : false;
-  }
-
-  scoreEmpty(): boolean {
-    return this.score() === null;
-  }
-  scoreIsLow(): boolean {
-    return this.scoreInRange(Number.NEGATIVE_INFINITY,3);
-  }
-  scoreIsMid(): boolean {
-    return this.scoreInRange(4,5);
-  }
-  scoreIsHigh(): boolean {
-    return this.scoreInRange(6,Number.POSITIVE_INFINITY);
+    this.status = data.status as Status;
   }
 }

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "P1",
+    "name": "General Information Security Policy",
+    "status": "published"
+  },
+  {
+    "id": "P2",
+    "name": "Governance & ISMS Management",
+    "status": "published"
+  },
+  {
+    "id": "P3",
+    "name": "Operating Procedures for ICT and Access",
+    "status": "published"
+  },
+  {
+    "id": "NA",
+    "name": "Not Applicable",
+    "status": "published"
+  }
+]

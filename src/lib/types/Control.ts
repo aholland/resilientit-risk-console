@@ -1,17 +1,42 @@
 import type {Policy} from "$lib/types/Policy";
 
-export type Control = {
-  id: string; // e.g., "A.5.1"
-  name: string; // e.g., "Policies for information security"
-  objective: string; // e.g., "Information security policy and topic-specific policies shall be defined..."
-  purpose: string; // e.g., "To ensure continuing suitability, adequacy, effectiveness..."
-  type: string | string[]; // e.g., "Preventive" or ["Preventive", "Detective"]
-  securityProperties: string[]; // e.g., ["Confidentiality", "Integrity", "Availability"]
-  riskGrouping: string; // e.g., "Policy Management"
-  policy: Policy[] | null; // e.g., "General Information Security Policy"
-  status: string;
-};
+export class Control {
+  id: string;
+  name: string;
+  objective: string;
+  purpose: string;
+  type: string | string[];
+  securityProperties: string[];
+  riskGrouping: string;
+  policies: Policy[];
+  status?: string;
 
-// IMPLEMENTED
-
-
+  constructor(data: {
+    id: string;
+    name: string;
+    objective: string;
+    purpose: string;
+    type: string | string[];
+    securityProperties: string[];
+    riskGrouping: string;
+    policies: string[];
+    status?: string;
+  },policyMap: Map<string, Policy>) {
+    this.id = data.id;
+    this.name = data.name;
+    this.objective = data.objective;
+    this.purpose = data.purpose;
+    this.type = data.type;
+    this.securityProperties = data.securityProperties;
+    this.riskGrouping = data.riskGrouping;
+    this.status = data.status;
+    this.policies = data.policies.map(id => {
+      const policy = policyMap.get(id)
+      if (!policy) {
+        throw new Error(`No policy found for id ${id}`);
+      } else {
+        return policy;
+      }
+    });
+  }
+}

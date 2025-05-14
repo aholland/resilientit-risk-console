@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+html {
+    background: var(--background);
+}
 .sdt-component-wrap {
     @apply text-xs;
 }

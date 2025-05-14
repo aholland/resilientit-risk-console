@@ -4,6 +4,7 @@
   import {writable} from 'svelte/store';
   import {onMount} from 'svelte';
   import '$lib/styles/themes.css';
+  import ManageMatrixBanner from "$lib/components/ManageMatrixBanner.svelte";
 
 
   // Props for child content
@@ -30,23 +31,21 @@
     userRole.set('admin'); // Example: Fetch from auth context
   });
 </script>
-<div class="max-w-4xl mx-auto rounded-lg shadow-lg flex flex-col min-h-[calc(100vh-2.5rem)] pt-5"
-     style="background-color: var(--container-bg);">
-    <img src="/Resilient-Logo.jpg" alt="Solving the problems that matter most ™" class="mb-4 mx-auto rounded-lg"
-         style="max-width: 600px; max-height: 145px;"/>
+<div class="m-5 rounded-lg flex flex-col min-h-[calc(100vh-2.5rem)]">
+    <ManageMatrixBanner/>
 
     <div class="flex min-h-screen">
         <!-- Sidebar -->
-        <aside class="w-64 text-white p-4">
+        <aside class="text-white py-6">
             <nav>
                 <ul class="space-y-2">
                     {#each navLinks as link}
                         <li>
                             <a
                                     href={link.path}
-                                    class="block p-2 rounded hover:bg-gray-700 {page.url.pathname === link.path
-								? 'bg-gray-700'
-								: ''}"
+                                    class="block p-2 pl-4 pr-4 {page.url.pathname === link.path
+								? 'bg-[#26325e] '
+								: 'hover:bg-[#344B84]'}" style="border-radius: 4px"
                             >
                                 {link.name}
                             </a>
@@ -57,14 +56,13 @@
         </aside>
 
         <!-- Main content -->
-        <main class="flex-1 bg-gray-100">
+        <main class="flex-1 pt-[1px]">
             {@render children()}
         </main>
     </div>
 </div>
 <style>
     :global(html), :global(body) {
-        background-color: var(--background);
         margin: 0;
         padding: 0;
         height: 100%;
