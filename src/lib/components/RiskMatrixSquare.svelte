@@ -28,8 +28,11 @@
 
 <span
   class="w-[26px] h-[26px] flex items-center justify-center text-xs border border-white relative"
+  role="button"
+  tabindex="0"
   style="background: {bgColor}; color: {fontColor}; filter: blur({blur}) brightness({brightness});"
         onmouseover={()=>{selectedScore = score;}}
+        onfocus={()=>{selectedScore = score;}}
 >
   {score.value()}
 </span>

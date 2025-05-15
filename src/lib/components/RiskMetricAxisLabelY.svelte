@@ -14,8 +14,6 @@
 
 <span
         class="inline-flex w-full justify-between gap-1 items-center flex-nowrap"
-        role="button"
-        tabindex="0"
         style="width: {maxWidth ? `${maxWidth}px` : 'auto'}"
 >
   <span class={`w-3 h-3 inline-block`} style="background: {RiskColoursMap.getAxisColour(vv)};"></span>

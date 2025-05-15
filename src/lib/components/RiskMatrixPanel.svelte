@@ -31,11 +31,30 @@
   const lineX2 = $derived((yAxisWidth + (localScore.impact) * cellSize)); // Right edge
   const lineY1 = $derived((xAxisWidth + (scale - localScore.likelihood) * cellSize)-1); // Top edge of selected row
   const lineY2 = $derived((xAxisWidth + ((scale - localScore.likelihood + 1) * cellSize))+1); // Bottom edge
+
+  // Keyboard handler for both divs
+  function handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter' || event.key === 'Space') {
+      event.preventDefault();
+      if (event.currentTarget === event.target) {
+        if (event.currentTarget.id === 'outer-div') {
+          close();
+        } else if (event.currentTarget.id === 'grid-div') {
+          score = localScore;
+          close();
+        }
+      }
+    }
+  }
 </script>
-<div class="flex flex-row items-start"
-     onclick={()=>{
-                        close();
-                    }}
+
+<div
+  id="outer-div"
+  class="flex flex-row items-start"
+  role="button"
+  tabindex="0"
+  onclick={() => close()}
+  onkeydown={handleKeyDown}
 >
     <div style="width: 30px; height: 1px;">
         <div class="absolute rotate-270 font-stretch-200% tracking-widest" style="top: 70px; left: -35px;">likelihood
@@ -54,13 +73,18 @@
                         </div>
                     {/each}
                 </div>
-                <div onclick={()=>{
+        <div
+          id="grid-div"
+          role="button"
+          tabindex="0"
+          onclick={() => {
                         score = localScore;
                         close();
                     }}
                      onmouseleave={()=>{
                          localScore = score;
                      }}
+          onkeydown={handleKeyDown}
                     >
                     {#each grid as row, rowIndex}
                         <div class="flex">
@@ -85,11 +109,7 @@
                 impact
             </div>
 
-            <!--        <div class="absolute left-[-50px] top-[60px] text-sm justify-center font-stretch-200% tracking-widest rotate-270">-->
-            <!--            likelihood-->
-            <!--        </div>-->
-
-            {#if (!localScore.isIncomplete())}
+            {#if !localScore.isIncomplete()}
                 <!-- Vertical line 1 (left of selected column) -->
                 <div
                         class="absolute top-[1px] w-[4px] bg-blue-400 z-0 opacity-60 pointer-events-none"

@@ -12,8 +12,6 @@
 
 <div
         class="flex flex-col items-center gap-1"
-        role="button"
-        tabindex="0"
 >
   <span class="text-xs whitespace-nowrap" style="color: var(--text-muted);">
     {vv !== null ? vv : 'N/A'}
