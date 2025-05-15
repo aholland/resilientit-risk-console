@@ -5,7 +5,7 @@
   import RiskMetricAxisLabelY from '$lib/components/RiskMetricAxisLabelY.svelte';
 
   let {score = $bindable(), close} = $props<{ score: RiskScore, close: () => void }>();
-  let localScore = $state(new RiskScore(score.likelihood,score.impact,score.scale));
+  let localScore = $state(new RiskScore(score.likelihood, score.impact, score.scale));
 
   const scale = score.scale;
   // Generate RiskScore objects for each cell in the n×n grid
@@ -27,33 +27,51 @@
   const gridHeight = (scale * cellSize) + 31;
 
   // Line positions based on selected score (1-based index)
-  const lineX1 = $derived((yAxisWidth + (localScore.impact - 1) * cellSize) - 1); // Left edge of selected column
-  const lineX2 = $derived((yAxisWidth + (localScore.impact) * cellSize) - 1); // Right edge
-  const lineY1 = $derived((xAxisWidth + (scale - localScore.likelihood) * cellSize)); // Top edge of selected row
-  const lineY2 = $derived((xAxisWidth + ((scale - localScore.likelihood + 1) * cellSize))); // Bottom edge
+  const lineX1 = $derived((yAxisWidth + (localScore.impact - 1) * cellSize) - 2); // Left edge of selected column
+  const lineX2 = $derived((yAxisWidth + (localScore.impact) * cellSize)); // Right edge
+  const lineY1 = $derived((xAxisWidth + (scale - localScore.likelihood) * cellSize)-1); // Top edge of selected row
+  const lineY2 = $derived((xAxisWidth + ((scale - localScore.likelihood + 1) * cellSize))+1); // Bottom edge
 </script>
-<div class="flex flex-row items-start cursor-cell">
+<div class="flex flex-row items-start"
+     onclick={()=>{
+                        close();
+                    }}
+>
     <div style="width: 30px; height: 1px;">
         <div class="absolute rotate-270 font-stretch-200% tracking-widest" style="top: 70px; left: -35px;">likelihood
         </div>
     </div>
     <div class="flex flex-col relative">
         <!-- Grid with lines -->
-        <div class="relative" onclick={()=>{
-            score = localScore;
-            close();
-        }}>
-            {#each grid as row, rowIndex}
-                <div class="flex">
-                    <!-- Y-axis label -->
-                    <RiskMetricAxisLabelY label="" vv={scale - rowIndex} maxWidth={25}/>
-                    <span style="width: 5px"></span>
-                    <!-- Grid row -->
-                    {#each row as squareScore}
-                        <RiskMatrixSquare score={squareScore} bind:selectedScore={localScore}/>
+        <div class="relative">
+            <div class="flex flex-row">
+                <div>
+                    {#each grid as row, rowIndex}
+                        <div class="flex">
+                            <!-- Y-axis label -->
+                            <RiskMetricAxisLabelY label="" vv={scale - rowIndex} maxWidth={25}/>
+                            <span class="w-[5px] h-[26px]"></span>
+                        </div>
                     {/each}
                 </div>
-            {/each}
+                <div onclick={()=>{
+                        score = localScore;
+                        close();
+                    }}
+                     onmouseleave={()=>{
+                         localScore = score;
+                     }}
+                    >
+                    {#each grid as row, rowIndex}
+                        <div class="flex">
+                            <!-- Grid row -->
+                            {#each row as squareScore}
+                                <RiskMatrixSquare score={squareScore} bind:selectedScore={localScore}/>
+                            {/each}
+                        </div>
+                    {/each}
+                </div>
+            </div>
             <!-- X-axis labels -->
             <div class="flex">
                 <div class="w-[30px]"></div>
@@ -74,22 +92,22 @@
             {#if (!localScore.isIncomplete())}
                 <!-- Vertical line 1 (left of selected column) -->
                 <div
-                        class="absolute top-[1px] w-[4px] bg-blue-400 z-0 opacity-60"
+                        class="absolute top-[1px] w-[4px] bg-blue-400 z-0 opacity-60 pointer-events-none"
                         style="left: {lineX1}px; height: {gridHeight}px;"
                 ></div>
                 <!-- Vertical line 2 (right of selected column) -->
                 <div
-                        class="absolute top-[1px] w-[4px] bg-blue-400 z-0 opacity-60"
+                        class="absolute top-[1px] w-[4px] bg-blue-400 z-0 opacity-60 pointer-events-none"
                         style="left: {lineX2}px; height: {gridHeight}px;"
                 ></div>
                 <!-- Horizontal line 1 (top of selected row) -->
                 <div
-                        class="absolute left-[0px] h-[4px] bg-blue-400 z-0 opacity-60"
+                        class="absolute left-[0px] h-[4px] bg-blue-400 z-0 opacity-60 pointer-events-none"
                         style="top: {lineY1}px; width: {gridWidth-2}px;"
                 ></div>
                 <!-- Horizontal line 2 (bottom of selected row) -->
                 <div
-                        class="absolute left-[0px] h-[4px] bg-blue-400 z-0 opacity-60"
+                        class="absolute left-[0px] h-[4px] bg-blue-400 z-0 opacity-60 pointer-events-none"
                         style="top: {lineY2}px; width: {gridWidth-2}px;"
                 ></div>
             {/if}

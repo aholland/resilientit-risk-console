@@ -83,7 +83,7 @@
 
     {#if showPopup}
         <div bind:this={dropdownEl}
-                class="absolute bottom-full left-[-98px] mt-1 z-10 bg-white border border-gray-400 rounded-sm shadow-sm p-2"
+                class="absolute bottom-full left-[-98px] mt-1 z-10 bg-white border border-gray-400 rounded-sm shadow-sm p-2 cursor-default"
         >
             <RiskMatrixPanel bind:score={score} close={() => {showPopup = false;}}/>
         </div>

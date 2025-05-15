@@ -13,7 +13,7 @@
 </script>
 
 <span
-        class="inline-flex w-full justify-between gap-1 items-center flex-nowrap cursor-pointer"
+        class="inline-flex w-full justify-between gap-1 items-center flex-nowrap"
         role="button"
         tabindex="0"
         style="width: {maxWidth ? `${maxWidth}px` : 'auto'}"
