@@ -89,8 +89,6 @@
             onKeydown={handleKeydown}
             hoverClass="hover:bg-yellow-200"
             {maxWidth}
-            w={3}
-            h={3}
     />
 
     {#if showDropdown}
@@ -105,9 +103,6 @@
                         onClick={() => selectValue(num)}
                         onKeydown={handleKeydown}
                         hoverClass="hover:bg-gray-100 px-2 py-1"
-                        {maxWidth}
-                        w={3}
-                        h={3}
                 />
             {/each}
         </div>

@@ -7,7 +7,9 @@
   import RiskFieldSubPanel from "$lib/components/RiskFieldSubPanel.svelte";
   let maxWidth = $state<number | null>(null);
 
-  const {score} = $props<{ score: RiskScore }>();
+  let {score = $bindable()} = $props<{ score: RiskScore }>();
+  let fieldEl: HTMLDivElement | undefined = $state(undefined);
+  let dropdownEl: HTMLDivElement | undefined = $state(undefined);
   let showPopup = $state(false);
 
   let measureDiv: HTMLDivElement;
@@ -24,8 +26,8 @@
           props: {
             score: rs,
             maxWidth: null,
-            handleMouseEnter: () => {},
-            handleMouseLeave: () => {},
+            onClick: () => {},
+            onKeydown: () => {},
           }
         });
         const {width} = measureDiv.getBoundingClientRect();
@@ -36,28 +38,54 @@
     return maxWidth;
   }
 
-  function handleMouseEnter() {
-    showPopup = true;
+  function toggleDropdown() {
+    showPopup = !showPopup;
   }
 
-  function handleMouseLeave() {
+  function selectValue(value: number) {
+    //v = value;
     showPopup = false;
   }
 
+  function handleKeydown(event: KeyboardEvent, action: () => void) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      action();
+    }
+  }
+
+  function handleOutsideClick(event: MouseEvent) {
+    if (event?.target instanceof Node) {
+      const targetNode: Node = event.target;
+      if (!fieldEl?.contains(targetNode) && !dropdownEl?.contains(targetNode)) {
+        showPopup = false;
+      }
+    }
+  }
+
+  $effect(() => {
+    if (showPopup) {
+      window.addEventListener('click', handleOutsideClick);
+      return () => window.removeEventListener('click', handleOutsideClick);
+    }
+  });
   $effect(() => {
     maxWidth = measureSubPanelWidths();
   });
 
 </script>
 
-<div class="relative inline-flex">
-    <RiskFieldSubPanel {score} {handleMouseEnter} {handleMouseLeave} {maxWidth}/>
+<div bind:this={fieldEl} class="relative inline-flex gap-1 items-center cursor-pointer">
+    <RiskFieldSubPanel bind:score={score} {maxWidth}
+                       onClick={toggleDropdown}
+                       onKeydown={handleKeydown}
+    />
 
     {#if showPopup}
-        <div
-                class="absolute top-full left-0 mt-1 z-10 bg-white border border-gray-400 rounded-sm shadow-sm p-2"
+        <div bind:this={dropdownEl}
+                class="absolute bottom-full left-[-98px] mt-1 z-10 bg-white border border-gray-400 rounded-sm shadow-sm p-2"
         >
-            <RiskMatrixPanel scale={score?.scale ?? 5}/>
+            <RiskMatrixPanel bind:score={score} close={() => {showPopup = false;}}/>
         </div>
     {/if}
 </div>

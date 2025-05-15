@@ -45,7 +45,7 @@
                     {@render vbar()}
                     <RiskMetricPanel label="Likelihood" bind:v={$riskStore.score.likelihood} />
                     {@render vbar()}
-                    <RiskField score={$riskStore.score}/>
+                    <RiskField bind:score={$riskStore.score}/>
                 </div>
             </div>
         </div>

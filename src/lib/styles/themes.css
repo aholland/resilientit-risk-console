@@ -4,6 +4,7 @@
     --container-bg: #4A68AD; /* Lighter blue container */
     --item-bg: white; /* Lighter blue for items */
     --text-primary: black; /* White primary text */
+    --text-muted: darkgray; /* White primary text */
     --text-secondary: #E0E0E0; /* Light grey-white secondary text */
     --text-on-blue: white; /* Light grey-white secondary text */
     --border: #FFFFFF; /* White border for logo contrast */

@@ -2,15 +2,21 @@
     import {RiskColoursMap} from "$lib/utils/RiskColoursMap.js";
     import {RiskScore} from "$lib/types/RiskScore.js";
 
-    const { score, handleMouseEnter, handleMouseLeave, maxWidth } = $props<{ score: RiskScore, handleMouseEnter: () => void, handleMouseLeave: () => void, maxWidth: number | null }>();
+    const { score = $bindable(), maxWidth, onClick, onKeydown } = $props<{
+      score: RiskScore,
+      maxWidth: number | null,
+      onClick: () => void;
+      onKeydown: (event: KeyboardEvent, action: () => void) => void;
+    }>();
+
 </script>
 <span
           class="inline-flex w-full justify-between gap-1 items-center hover:bg-yellow-200"
           role="button"
           tabindex="0"
-          onmouseenter={handleMouseEnter}
-          onmouseleave={handleMouseLeave}
           style="min-width: {maxWidth ? `${maxWidth}px` : 'auto'}"
+          onclick={onClick}
+          onkeydown={(event) => onKeydown(event, onClick)}
   >
     <span
             class="text-xs"

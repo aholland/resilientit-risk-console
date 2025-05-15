@@ -77,4 +77,8 @@ export class RiskScore {
   maxValue(): number {
     return this.scale^2;
   }
+
+  toString() : string {
+    return `Likelihood ${this.likelihood}, impact ${this.impact}, scale ${this.scale}`;
+  }
 }
