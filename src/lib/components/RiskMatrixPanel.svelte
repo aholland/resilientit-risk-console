@@ -112,22 +112,22 @@
             {#if !localScore.isIncomplete()}
                 <!-- Vertical line 1 (left of selected column) -->
                 <div
-                        class="absolute top-[1px] w-[4px] bg-blue-400 z-0 opacity-60 pointer-events-none"
+                        class="absolute top-[1px] w-[4px] bg-blue-400 z-0 opacity-80 pointer-events-none"
                         style="left: {lineX1}px; height: {gridHeight}px;"
                 ></div>
                 <!-- Vertical line 2 (right of selected column) -->
                 <div
-                        class="absolute top-[1px] w-[4px] bg-blue-400 z-0 opacity-60 pointer-events-none"
+                        class="absolute top-[1px] w-[4px] bg-blue-400 z-0 opacity-80 pointer-events-none"
                         style="left: {lineX2}px; height: {gridHeight}px;"
                 ></div>
                 <!-- Horizontal line 1 (top of selected row) -->
                 <div
-                        class="absolute left-[0px] h-[4px] bg-blue-400 z-0 opacity-60 pointer-events-none"
+                        class="absolute left-[0px] h-[4px] bg-blue-400 z-0 opacity-80 pointer-events-none"
                         style="top: {lineY1}px; width: {gridWidth-2}px;"
                 ></div>
                 <!-- Horizontal line 2 (bottom of selected row) -->
                 <div
-                        class="absolute left-[0px] h-[4px] bg-blue-400 z-0 opacity-60 pointer-events-none"
+                        class="absolute left-[0px] h-[4px] bg-blue-400 z-0 opacity-80 pointer-events-none"
                         style="top: {lineY2}px; width: {gridWidth-2}px;"
                 ></div>
             {/if}

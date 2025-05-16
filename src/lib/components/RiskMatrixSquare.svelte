@@ -9,7 +9,6 @@
 
   // Get the background color
   const bgColor = RiskColoursMap.getScoreColour(score);
-
   const fontColor = RiskColoursMap.getContrastColorBW(bgColor);
 
   const sameLikelihood = $derived(score.likelihood === selectedScore.likelihood);
@@ -18,21 +17,43 @@
   const partialMatch = $derived(!fullMatch && (sameLikelihood || sameImpact));
   const noMatch = $derived(!sameImpact && !sameLikelihood);
 
+  // Dynamic blur for frosted effect
   const blur = $derived(
-    noMatch ? '1.5px' : partialMatch ? '0.75px' : '0px'
+          noMatch ? '0.75px' : partialMatch ? '0.75px' : '0px'
   );
-  const brightness = $derived(
-    noMatch ? '40%' : partialMatch ? '70%' : '100%'
+  // Dynamic whiteness for frosted glass
+  const whiteness = $derived(
+          partialMatch ? 0.1 : 0.3
   );
 </script>
 
 <span
-  class="w-[26px] h-[26px] flex items-center justify-center text-xs border border-white relative"
-  role="button"
-  tabindex="0"
-  style="background: {bgColor}; color: {fontColor}; filter: blur({blur}) brightness({brightness});"
-        onmouseover={()=>{selectedScore = score;}}
-        onfocus={()=>{selectedScore = score;}}
+        class="w-[26px] h-[26px] flex items-center justify-center text-xs border border-white relative"
+        role="button"
+        tabindex="0"
+        style="background: {bgColor}; color: {fontColor};"
+        onmouseover={() => { selectedScore = score; }}
+        onfocus={() => { selectedScore = score; }}
 >
   {score.value()}
+  <!-- Frosted glass panel in front -->
+  {#if !fullMatch}
+  <div
+          class="frosted-glass"
+          style="backdrop-filter: blur(0.5px); background-color: rgba(255, 255, 255, 0.25);"
+  ></div>
+    {/if}
 </span>
+
+<style>
+  .frosted-glass {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 2px; /* Matches MVP's rounded-lg */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Matches MVP's shadow-lg */
+    z-index: 10; /* Ensures it’s in front of the span’s content */
+  }
+</style>
