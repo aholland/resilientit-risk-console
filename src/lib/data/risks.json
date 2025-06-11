@@ -7,7 +7,7 @@
     "description": " A loss of confidentiality, integrity, or availability occurs due to inadequate incident management and the failure of controls related to incident response, learning from incidents, evidence collection, logging, monitoring activities, and incident management responsibilities and preparation.",
     "likelihood": 3,
     "impact": 4,
-    "owner": null,
+    "owner": "Owner3",
     "treatment": "Treat",
     "controls": [
       "A.5.26",
@@ -32,7 +32,7 @@
     "description": "A loss of confidentiality, integrity, or availability occurs due to inadequate supplier management and the failure of controls related to information security in supplier relationships, supplier agreements, ICT supply chain management, supplier service monitoring and review, cloud service security, and confidentiality agreements.",
     "likelihood": null,
     "impact": null,
-    "owner": "Vendor Manager",
+    "owner": "Owner5",
     "treatment": "Treat",
     "controls": [
       "A.5.19",

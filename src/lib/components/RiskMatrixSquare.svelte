@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { RiskColoursMap } from '$lib/utils/RiskColoursMap';
-  import { RiskScore } from '$lib/types/RiskScore';
+  import {RiskColoursMap} from '$lib/utils/RiskColoursMap';
+  import {RiskScore} from '$lib/types/RiskScore';
 
-  let { score, selectedScore = $bindable() } = $props<{
+  let {score, selectedScore = $bindable()} = $props<{
     score: RiskScore;
     selectedScore: RiskScore;
   }>();
@@ -19,11 +19,11 @@
 
   // Dynamic blur for frosted effect
   const blur = $derived(
-          noMatch ? '0.75px' : partialMatch ? '0.75px' : '0px'
+    noMatch ? '0.75px' : partialMatch ? '0.75px' : '0px'
   );
   // Dynamic whiteness for frosted glass
   const whiteness = $derived(
-          partialMatch ? 0.1 : 0.3
+    partialMatch ? 0.1 : 0.3
   );
 </script>
 
@@ -36,24 +36,23 @@
         onfocus={() => { selectedScore = score; }}
 >
   {score.value()}
-  <!-- Frosted glass panel in front -->
-  {#if !fullMatch}
-  <div
-          class="frosted-glass"
-          style="backdrop-filter: blur(0.5px); background-color: rgba(255, 255, 255, 0.25);"
-  ></div>
+    <!-- Frosted glass panel in front -->
+    {#if !fullMatch}
+      <div
+              class="frosted-glass"
+              style="backdrop-filter: blur(0.5px); background-color: rgba(255, 255, 255, 0.25);"
+      ></div>
     {/if}
 </span>
 
 <style>
-  .frosted-glass {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 2px; /* Matches MVP's rounded-lg */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Matches MVP's shadow-lg */
-    z-index: 10; /* Ensures it’s in front of the span’s content */
-  }
+    .frosted-glass {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Matches MVP's shadow-lg */
+        z-index: 10; /* Ensures it’s in front of the span’s content */
+    }
 </style>
