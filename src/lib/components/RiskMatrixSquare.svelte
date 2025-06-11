@@ -28,10 +28,10 @@
 </script>
 
 <span
-        class="w-[26px] h-[26px] flex items-center justify-center text-xs border border-white relative"
+        class="w-[26px] h-[26px] flex items-center justify-center text-xs border relative"
+        style="background: {bgColor}; color: {fontColor}; border-color: var(--border);"
         role="button"
         tabindex="0"
-        style="background: {bgColor}; color: {fontColor};"
         onmouseover={() => { selectedScore = score; }}
         onfocus={() => { selectedScore = score; }}
 >
@@ -40,7 +40,7 @@
     {#if !fullMatch}
       <div
               class="frosted-glass"
-              style="backdrop-filter: blur(0.5px); background-color: rgba(255, 255, 255, 0.25);"
+              style="backdrop-filter: blur(0.5px); background-color: var(--hover-bg);"
       ></div>
     {/if}
 </span>

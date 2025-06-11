@@ -13,6 +13,9 @@
     --button-bg-hover: #002A55; /* Darker blue on hover */
     --button-bg-disabled: #002A55; /* Darker blue when disabled */
     --accent: #FFFFFF; /* White accent for checkboxes */
+    --hover-bg: rgba(0, 0, 0, 0.1); /* Light hover for light theme */
+    --banner-manage: #26325e; /* Original dark blue for "Manage" */
+    --banner-matrix: #4566AD; /* Original lighter blue for "Matrix" */
 }
 
 /* Dark Theme */
@@ -30,6 +33,9 @@
     --button-bg-hover: #5374BB; /* Lighter blue on hover */
     --button-bg-disabled: #334188; /* Darker blue when disabled */
     --accent: #4263AA; /* Blue accent */
+    --hover-bg: rgba(255, 255, 255, 0.1); /* Light hover for dark theme */
+    --banner-manage: #E0E0E0; /* Light gray for "Manage" in dark mode */
+    --banner-matrix: #B8C5F2; /* Light blue tint for "Matrix" in dark mode */
 }
 
 /* Default fallback (light theme) */
@@ -47,4 +53,12 @@
     --button-bg-hover: #002A55;
     --button-bg-disabled: #002A55;
     --accent: #FFFFFF;
+    --hover-bg: rgba(0, 0, 0, 0.1);
+    --banner-manage: #26325e;
+    --banner-matrix: #4566AD;
+}
+
+/* Theme-aware hover effects */
+.theme-hover:hover {
+    background-color: var(--hover-bg);
 }

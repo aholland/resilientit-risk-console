@@ -1,11 +1,9 @@
 <script lang="ts">
-  import {RiskColoursMap} from '$lib/utils/RiskColoursMap';
   import RiskMatrixPanel from './RiskMatrixPanel.svelte';
   import {RiskScore} from '$lib/types/RiskScore';
   import {mount, unmount} from "svelte";
-  import RiskMetricSubPanel from "$lib/components/RiskMetricSubPanel.svelte";
   import RiskFieldSubPanel from "$lib/components/RiskFieldSubPanel.svelte";
-  let maxWidth = $state<number | null>(null);
+  let maxWidth = $state<number | undefined>(undefined);
 
   let {score = $bindable()} = $props<{ score: RiskScore }>();
   let fieldEl: HTMLDivElement | undefined = $state(undefined);
@@ -25,7 +23,7 @@
           target: measureDiv,
           props: {
             score: rs,
-            maxWidth: null,
+            maxWidth: undefined,
             onClick: () => {},
             onKeydown: () => {},
           }
@@ -40,11 +38,6 @@
 
   function toggleDropdown() {
     showPopup = !showPopup;
-  }
-
-  function selectValue(value: number) {
-    //v = value;
-    showPopup = false;
   }
 
   function handleKeydown(event: KeyboardEvent, action: () => void) {
@@ -83,7 +76,8 @@
 
     {#if showPopup}
         <div bind:this={dropdownEl}
-                class="absolute bottom-full left-[-98px] mt-1 z-10 bg-white border border-gray-400 rounded-sm shadow-sm p-2 cursor-default"
+                class="absolute bottom-full left-[-98px] mt-1 z-10 border border-gray-400 rounded-sm shadow-sm p-2 cursor-default"
+                style="background-color: var(--item-bg);"
         >
             <RiskMatrixPanel bind:score={score} close={() => {showPopup = false;}}/>
         </div>

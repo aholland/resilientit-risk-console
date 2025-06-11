@@ -4,14 +4,14 @@
 
     const { score = $bindable(), maxWidth, onClick, onKeydown } = $props<{
       score: RiskScore,
-      maxWidth: number | null,
+      maxWidth?: number,
       onClick: () => void;
       onKeydown: (event: KeyboardEvent, action: () => void) => void;
     }>();
 
 </script>
 <span
-          class="inline-flex w-full justify-between gap-1 items-center hover:bg-yellow-200"
+          class="inline-flex w-full justify-between gap-1 items-center theme-hover"
           role="button"
           tabindex="0"
           style="min-width: {maxWidth ? `${maxWidth}px` : 'auto'}"

@@ -14,7 +14,7 @@
     onClick: () => void;
     onKeydown: (event: KeyboardEvent, action: () => void) => void;
     hoverClass: string;
-    maxWidth: number | null;
+    maxWidth?: number;
   }>();
 </script>
 

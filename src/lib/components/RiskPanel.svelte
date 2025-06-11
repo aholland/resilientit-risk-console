@@ -96,7 +96,7 @@
                     <option value={owner}>{owner.name}</option>
                 {/each}
             </select>
-            <span class="text-xs font-light" style="color: gray">|</span>
+            <span class="text-xs font-light" style="color: var(--text-muted);">|</span>
             <span class="text-xs" style="color: var(--text-primary);">Treatment</span>
             <select title="Select the risk management option"
                     class="text-xs border border-gray-400 rounded-sm px-2 py-1"
@@ -132,7 +132,7 @@
                         class="text-xs border border-gray-400 rounded-sm"
                         style="background-color: var(--item-bg); color: var(--text-primary);"
                 />
-            <span class="text-xs font-light" style="color: gray">|</span>
+            <span class="text-xs font-light" style="color: var(--text-muted);">|</span>
             <span class="text-xs" style="color: var(--text-primary);">Date last reviewed</span>
             <SveltyPicker
                     mode="date"
@@ -147,7 +147,7 @@
                     manualInput={true}
 
             />
-            <span class="text-xs font-light" style="color: gray">|</span>
+            <span class="text-xs font-light" style="color: var(--text-muted);">|</span>
         </div>
         {#if detailed}
             <hr class="border-gray-400"/>

@@ -8,7 +8,7 @@
   let showDropdown = $state(false);
   let fieldEl: HTMLDivElement | undefined = $state(undefined);
   let dropdownEl: HTMLDivElement | undefined = $state(undefined);
-  let maxWidth = $state<number | null>(null);
+  let maxWidth = $state<number | undefined>(undefined);
   let measureDiv: HTMLDivElement;
 
   function measureDropdownWidths(): number {
@@ -29,7 +29,7 @@
           onKeydown: () => {
           },
           hoverClass: '',
-          maxWidth: null,
+          maxWidth: undefined,
           w:3,
           h:3
         }
@@ -87,13 +87,14 @@
             vv={v}
             onClick={toggleDropdown}
             onKeydown={handleKeydown}
-            hoverClass="hover:bg-yellow-200"
+            hoverClass="theme-hover px-2 py-1"
             {maxWidth}
     />
 
     {#if showDropdown}
         <div
-                class="absolute top-full left-[-9px] mt-1 z-10 border border-gray-400 bg-white rounded-sm shadow-sm flex flex-col"
+                class="absolute top-full left-[-9px] mt-1 z-10 border border-gray-400 rounded-sm shadow-sm flex flex-col"
+                style="background-color: var(--item-bg);"
                 bind:this={dropdownEl}
         >
             {#each [0, 1, 2, 3, 4, 5] as num}
@@ -102,7 +103,7 @@
                         vv={num}
                         onClick={() => selectValue(num)}
                         onKeydown={handleKeydown}
-                        hoverClass="hover:bg-gray-100 px-2 py-1"
+                        hoverClass="theme-hover px-2 py-1"
                 />
             {/each}
         </div>
