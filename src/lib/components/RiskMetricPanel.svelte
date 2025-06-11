@@ -87,7 +87,7 @@
             vv={v}
             onClick={toggleDropdown}
             onKeydown={handleKeydown}
-            hoverClass="theme-hover px-2 py-1"
+            hoverClass="theme-hover"
             {maxWidth}
     />
 
