@@ -13,7 +13,8 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"svelty-picker": "6.1.5"
+		"svelty-picker": "6.1.5",
+		"svelte-themes": "file:../svelte-themes"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-vercel": "5.7.2",

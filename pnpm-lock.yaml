@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      svelte-themes:
+        specifier: file:../svelte-themes
+        version: file:../svelte-themes(@sveltejs/kit@2.21.0(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.28.6)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.29.2)))(svelte@5.28.6)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.29.2)))(svelte@5.28.6)
       svelty-picker:
         specifier: 6.1.5
         version: 6.1.5(svelte@5.28.6)
@@ -1204,6 +1207,12 @@ packages:
       svelte: ^4.0.0 || ^5.0.0-next.0
       typescript: '>=5.0.0'
 
+  svelte-themes@file:../svelte-themes:
+    resolution: {directory: ../svelte-themes, type: directory}
+    peerDependencies:
+      '@sveltejs/kit': ^2.0.0
+      svelte: ^4.0.0 || ^5.0.0
+
   svelte@5.28.6:
     resolution: {integrity: sha512-9qqr7mw8YR9PAnxGFfzCK6PUlNGtns7wVavrhnxyf3fpB1mP/Ol55Z2UnIapsSzNNl3k9qw7cZ22PdE8+xT/jQ==}
     engines: {node: '>=18'}
@@ -2309,6 +2318,11 @@ snapshots:
       typescript: 5.8.3
     transitivePeerDependencies:
       - picomatch
+
+  svelte-themes@file:../svelte-themes(@sveltejs/kit@2.21.0(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.28.6)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.29.2)))(svelte@5.28.6)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.29.2)))(svelte@5.28.6):
+    dependencies:
+      '@sveltejs/kit': 2.21.0(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.28.6)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.29.2)))(svelte@5.28.6)(vite@6.3.5(jiti@2.4.2)(lightningcss@1.29.2))
+      svelte: 5.28.6
 
   svelte@5.28.6:
     dependencies:

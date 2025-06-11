@@ -1,15 +1,50 @@
-/* Adjusted Theme */
-:root {
+/* Light Theme */
+:root[data-theme="light"] {
+    color-scheme: light;
     --background: #4263AA; /* Darker blue background */
     --container-bg: #4A68AD; /* Lighter blue container */
-    --item-bg: white; /* Lighter blue for items */
-    --text-primary: black; /* White primary text */
-    --text-muted: darkgray; /* White primary text */
+    --item-bg: white; /* White for items */
+    --text-primary: black; /* Black primary text */
+    --text-muted: darkgray; /* Dark gray muted text */
     --text-secondary: #E0E0E0; /* Light grey-white secondary text */
-    --text-on-blue: white; /* Light grey-white secondary text */
+    --text-on-blue: white; /* White text on blue backgrounds */
     --border: #FFFFFF; /* White border for logo contrast */
     --button-bg: #003A75; /* Distinct blue button */
     --button-bg-hover: #002A55; /* Darker blue on hover */
     --button-bg-disabled: #002A55; /* Darker blue when disabled */
     --accent: #FFFFFF; /* White accent for checkboxes */
+}
+
+/* Dark Theme */
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --background: #1a1a1a; /* Dark background */
+    --container-bg: #2a2a2a; /* Dark container */
+    --item-bg: #26325e; /* Dark items - matches central logo dot */
+    --text-primary: color-mix(in oklab, white, transparent 25%); /* White primary text */
+    --text-muted: #a0a0a0; /* Light gray muted text */
+    --text-secondary: #cccccc; /* Light secondary text */
+    --text-on-blue: white; /* White text on blue backgrounds */
+    --border: #4a4a4a; /* Dark border */
+    --button-bg: #4263AA; /* Blue button */
+    --button-bg-hover: #5374BB; /* Lighter blue on hover */
+    --button-bg-disabled: #334188; /* Darker blue when disabled */
+    --accent: #4263AA; /* Blue accent */
+}
+
+/* Default fallback (light theme) */
+:root {
+    color-scheme: light dark;
+    --background: #4263AA;
+    --container-bg: #4A68AD;
+    --item-bg: white;
+    --text-primary: black;
+    --text-muted: darkgray;
+    --text-secondary: #E0E0E0;
+    --text-on-blue: white;
+    --border: #FFFFFF;
+    --button-bg: #003A75;
+    --button-bg-hover: #002A55;
+    --button-bg-disabled: #002A55;
+    --accent: #FFFFFF;
 }

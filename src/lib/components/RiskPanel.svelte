@@ -1,32 +1,35 @@
 <script lang="ts">
   import type {Risk} from '$lib/types/Risk';
+  import type {Owner} from '$lib/types/Owner';
   import ControlPanel from './ControlPanel.svelte';
   import {RiskColoursMap} from '$lib/utils/RiskColoursMap';
   import SveltyPicker, {formatDate, parseDate} from 'svelty-picker';
   import {en} from 'svelty-picker/i18n';
   import RiskMetricPanel from "$lib/components/RiskMetricPanel.svelte";
-  import { writable, get  } from 'svelte/store';
+  import { writable } from 'svelte/store';
   import RiskField from "$lib/components/RiskField.svelte";
+  import {riskManagementOptions} from "$lib/types/RiskManagementOption";
 
-  let {risk, detailed} = $props<{ risk: Risk; detailed: boolean }>();
+  let {risk, detailed, ownersMap} = $props<{
+    risk: Risk;
+    detailed: boolean;
+    ownersMap: Map<string, Owner>;
+  }>();
   const riskStore = writable<Risk>(risk);
 
   const parse = function (v: string): Date | null {
     return v ? parseDate(v, 'dd/mm/yyyy', en, 'standard') : null;
   }
 
-  let date: Date | null = $state((() => parse(risk.dateAdded))());
-
-//  $effect(() => {
-//    riskStore.set(risk);
-//  });
+  let dateAdded: Date | null = $state((() => parse(risk.dateAdded))());
+  let dateLastReviewed: Date | null = $state((() => parse(risk.lastReviewed))());
 </script>
 
 <li
         class="relative p-3 rounded-sm mb-2 shadow-sm list-none"
         style="background-color: var(--item-bg);"
 >
-    <div class="flex flex-col gap-1" style="background: #FFFFFF">
+    <div class="flex flex-col gap-1" style="background: var(--item-bg);">
         <div class="flex flex-col gap-1">
             <div class="flex gap-1 w-full">
                 <span style="color: var(--text-primary);">{risk.id} |</span>
@@ -62,18 +65,18 @@
                     displayFormat="dd/mm/yyyy"
                     bind:value={
                     () => {
-                      return date ? formatDate(date, 'yyyy-mm-dd', en, 'standard') : '';
+                      return dateAdded ? formatDate(dateAdded, 'yyyy-mm-dd', en, 'standard') : '';
                     },
                       parse
                   }
                     manualInput={true}
 
             />
-            <span class="text-xs font-light" style="color: gray">|</span>
+            <span class="text-xs font-light" style="color: var(--text-muted);">|</span>
             <span class="text-xs" style="color: var(--text-primary);">Risk Domain</span>
             <select title="Select the risk category"
-                    class="text-xs border border-gray-400 rounded-sm bg-white px-2 py-1"
-                    style="color: var(--text-primary);"
+                    class="text-xs border border-gray-400 rounded-sm px-2 py-1"
+                    style="background-color: var(--item-bg); color: var(--text-primary);"
             >
                 <option value="1" title="Financial">Financial</option>
                 <option value="2" title="Operational (including Information Security Risks)">Operational (incl. ISR)
@@ -82,6 +85,69 @@
                 <option value="4" title="Health and Safety">Health and Safety</option>
                 <option value="5" title="Regulatory/Legal">Regulatory/Legal</option>
             </select>
+            <span class="text-xs font-light" style="color: var(--text-muted);">|</span>
+            <span class="text-xs" style="color: var(--text-primary);">Owner</span>
+            <select title="Select the owner"
+                    class="text-xs border border-gray-400 rounded-sm px-2 py-1"
+                    style="background-color: var(--item-bg); color: var(--text-primary);"
+                    bind:value={$riskStore.owner}
+            >
+                {#each [...ownersMap] as [id, owner]}
+                    <option value={owner}>{owner.name}</option>
+                {/each}
+            </select>
+            <span class="text-xs font-light" style="color: gray">|</span>
+            <span class="text-xs" style="color: var(--text-primary);">Treatment</span>
+            <select title="Select the risk management option"
+                    class="text-xs border border-gray-400 rounded-sm px-2 py-1"
+                    style="background-color: var(--item-bg); color: var(--text-primary);"
+                    bind:value={$riskStore.treatment}
+            >
+                {#each riskManagementOptions as treatment}
+                    <option value={treatment}>{treatment}</option>
+                {/each}
+            </select>
+        </div>
+        <div class="flex items-center gap-1">
+            <span class="text-xs" style="color: var(--text-primary);">Control Process</span>
+            <input
+                    type="text"
+                    class="text-xs border border-gray-400 rounded-sm px-2 py-1"
+                    style="background-color: var(--item-bg); color: var(--text-primary); width: 48ch;"
+                    bind:value={$riskStore.checkProcess}
+            />
+        </div>
+        <div class="flex flex-col gap-1">
+            <span class="text-xs" style="color: var(--text-primary);">Control Detail/Rigor and Review Notes</span>
+            <textarea
+                    class="text-xs border border-gray-400 rounded-sm px-2 py-1"
+                    style="background-color: var(--item-bg); color: var(--text-primary); width: 80ch; height: 4em; resize: vertical;"
+                    bind:value={$riskStore.notes}
+            ></textarea>
+        </div>
+        <div class="flex flex-row gap-1">
+                <span class="text-xs" style="color: var(--text-primary);">Residual Risk Accepted</span>
+                <input
+                        type="checkbox"
+                        class="text-xs border border-gray-400 rounded-sm"
+                        style="background-color: var(--item-bg); color: var(--text-primary);"
+                />
+            <span class="text-xs font-light" style="color: gray">|</span>
+            <span class="text-xs" style="color: var(--text-primary);">Date last reviewed</span>
+            <SveltyPicker
+                    mode="date"
+                    format="yyyy-mm-dd"
+                    displayFormat="dd/mm/yyyy"
+                    bind:value={
+                    () => {
+                      return dateLastReviewed ? formatDate(dateAdded, 'yyyy-mm-dd', en, 'standard') : '';
+                    },
+                      parse
+                  }
+                    manualInput={true}
+
+            />
+            <span class="text-xs font-light" style="color: gray">|</span>
         </div>
         {#if detailed}
             <hr class="border-gray-400"/>

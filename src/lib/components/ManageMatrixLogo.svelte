@@ -9,8 +9,8 @@
 </script>
 
 <div
-        class="bg-white w-full flex flex-col items-center"
-        style="{`padding: ${padding}px;`} border-radius: {borderRadius}px; box-shadow: 0 4px 24px rgba(0,0,0,0.066);"
+        class="w-full flex flex-col items-center"
+        style="background-color: var(--item-bg); padding: {padding}px; border-radius: {borderRadius}px; box-shadow: 0 4px 24px rgba(0,0,0,0.066);"
 >
     <div class="flex justify-center w-full">
         <svg
