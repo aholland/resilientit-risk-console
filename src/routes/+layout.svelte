@@ -2,16 +2,16 @@
   import '../app.css';
   import { page } from '$app/state';
   import { writable } from 'svelte/store';
-  import { onMount } from 'svelte';
+  import { enhance } from '$app/forms';
   import '$lib/styles/themes.css';
   import ManageMatrixBanner from "$lib/components/ManageMatrixBanner.svelte";
   import themeStore, { SvelteTheme, setTheme } from 'svelte-themes';
 
-  // Props for child content
-  let { children } = $props();
+  // Props for child content and data
+  let { children, data } = $props();
 
-  // Mock user role (replace with Azure AD role check)
-  const userRole = writable('admin'); // Assume 'admin' or 'client' from Azure AD
+  // Mock user role
+  const userRole = writable('admin');
 
   // Sidebar collapse state
   let isSidebarCollapsed = $state(false);
@@ -28,12 +28,6 @@
     $userRole === 'admin' ? { name: 'Owner Management', path: '/owner-management' } : null
   ].filter((link) => link !== null));
 
-  onMount(() => {
-    // Fetch user role from Azure AD (mocked here)
-    // Replace with actual Azure AD role retrieval logic
-    userRole.set('admin'); // Example: Fetch from auth context
-  });
-
   // Toggle sidebar collapse state
   function toggleSidebar() {
     isSidebarCollapsed = !isSidebarCollapsed;
@@ -48,7 +42,12 @@
 
 <SvelteTheme />
 
-<div class="m-5 rounded-lg flex flex-col min-h-[calc(100vh-2.5rem)]">
+{#if page.url.pathname === '/login'}
+  <!-- Login page - no sidebar -->
+  {@render children()}
+{:else}
+  <!-- Main app with sidebar -->
+  <div class="m-5 rounded-lg flex flex-col min-h-[calc(100vh-2.5rem)]">
     <ManageMatrixBanner />
 
     <div class="flex min-h-screen">
@@ -111,6 +110,27 @@
                     {/each}
                 </ul>
             </nav>
+            
+            <!-- User info and sign out -->
+            {#if data.user}
+                <div class="mt-auto px-4 py-2 border-t border-gray-600">
+                    {#if !isSidebarCollapsed}
+                        <div class="mb-2">
+                            <p class="text-sm text-gray-300">Signed in as:</p>
+                            <p class="text-sm font-medium truncate">{data.user.email}</p>
+                        </div>
+                    {/if}
+                    <form method="POST" action="/logout" use:enhance>
+                        <button 
+                            type="submit"
+                            class="w-full p-2 text-sm hover:bg-[#344B84] rounded"
+                            title="Sign out"
+                        >
+                            Sign Out
+                        </button>
+                    </form>
+                </div>
+            {/if}
         </aside>
 
         <!-- Main content -->
@@ -118,7 +138,8 @@
             {@render children()}
         </main>
     </div>
-</div>
+  </div>
+{/if}
 
 <style>
     :global(html), :global(body) {
