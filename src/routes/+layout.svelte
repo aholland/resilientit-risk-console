@@ -43,8 +43,11 @@
 <SvelteTheme />
 
 {#if page.url.pathname === '/login'}
-  <!-- Login page - no sidebar -->
-  {@render children()}
+  <!-- Login page - banner only -->
+  <div class="m-5 rounded-lg flex flex-col min-h-[calc(100vh-2.5rem)]">
+    <ManageMatrixBanner />
+    {@render children()}
+  </div>
 {:else}
   <!-- Main app with sidebar -->
   <div class="m-5 rounded-lg flex flex-col min-h-[calc(100vh-2.5rem)]">
