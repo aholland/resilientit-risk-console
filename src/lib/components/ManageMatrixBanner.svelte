@@ -1,8 +1,10 @@
 <script lang="ts">
   import ManageMatrixLogo from './ManageMatrixLogo.svelte';
+  
+  let { onLogoClick } = $props<{ onLogoClick?: () => void }>();
 </script>
 
-<ManageMatrixLogo>
+<ManageMatrixLogo {onLogoClick}>
     <div class="logo-text">
       Manage<span class="matrix-text">Matrix</span>
     </div>

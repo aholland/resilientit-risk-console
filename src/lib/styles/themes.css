@@ -62,3 +62,8 @@
 .theme-hover:hover {
     background-color: var(--hover-bg);
 }
+
+/* Button hover effects */
+button[style*="--button-bg"]:hover:not(:disabled) {
+    background-color: var(--button-bg-hover) !important;
+}
